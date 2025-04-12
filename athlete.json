@@ -1,0 +1,32 @@
+[
+  {
+    "fullname": "M Fajar Arif",
+    "name": "fajar",
+    "imageUrl": "/athlete/fajar.png"
+  },
+  {
+    "fullname": "Tsaabitha Puti C",
+    "name": "bitha",
+    "imageUrl": "/athlete/bitha.png"
+  },
+  {
+    "fullname": "Najdan Hilmi",
+    "name": "hilmi",
+    "imageUrl": "/athlete/hilmi.png"
+  },
+  {
+    "fullname": "Abizar Abghi Y",
+    "name": "abizar",
+    "imageUrl": "/athlete/abizar.png"
+  },
+  {
+    "fullname": "Yudhantara",
+    "name": "yudan",
+    "imageUrl": "/athlete/yudan.png"
+  },
+  {
+    "fullname": "Daffa Putra H",
+    "name": "dafa",
+    "imageUrl": "/athlete/dafa.png"
+  }
+]
