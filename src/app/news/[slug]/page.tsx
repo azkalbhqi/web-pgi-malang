@@ -1,8 +1,10 @@
+
 import fs from "fs/promises"; // GUNAKAN fs/promises
 import path from "path";
 import { notFound } from "next/navigation";
 import NewsDetailCard from "@/app/utils/news-detail";
 
+// Interface untuk item berita
 interface NewsItem {
   title: string;
   body: string;
@@ -12,33 +14,34 @@ interface NewsItem {
   slug: string;
 }
 
+// Menggunakan async/await untuk mendapatkan data secara asinkron
 export async function generateStaticParams() {
-  // Mengambil data dari file news.json di folder public
   const filePath = path.join(process.cwd(), "public", "news.json");
   const data = await fs.readFile(filePath, "utf-8");
   const news: NewsItem[] = JSON.parse(data);
 
-  // Return slugs untuk generateStaticPaths
   return news.map((item) => ({
     slug: item.slug,
   }));
 }
 
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
+type Params = { slug: string };
 
-export default async function NewsDetailPage({ params }: PageProps) {
-  // Mengambil data dari file news.json di folder public
+// Default async function to handle dynamic route
+export default async function NewsDetailPage({ params }: { params: Promise<Params> }) {
+  // Await the params to access its properties
+  const { slug } = await params;
+
   const filePath = path.join(process.cwd(), "public", "news.json");
   const data = await fs.readFile(filePath, "utf-8");
   const news: NewsItem[] = JSON.parse(data);
 
-  const item = news.find((n) => n.slug === params.slug);
+  // Mencari item yang sesuai dengan slug
+  const item = news.find((n) => n.slug === slug);
 
-  if (!item) return notFound();
+  if (!item) {
+    return notFound(); // Menampilkan halaman not found jika item tidak ditemukan
+  }
 
   return (
     <NewsDetailCard
