@@ -1,7 +1,7 @@
-import fs from "fs";
+import fs from "fs/promises"; // GUNAKAN fs/promises
 import path from "path";
-import NewsDetailCard from "@/app/utils/news-detail";
 import { notFound } from "next/navigation";
+import NewsDetailCard from "@/app/utils/news-detail";
 
 interface NewsItem {
   title: string;
@@ -13,16 +13,27 @@ interface NewsItem {
 }
 
 export async function generateStaticParams() {
-  const filePath = path.join(process.cwd(), "news.json");
-  const data = fs.readFileSync(filePath, "utf-8");
+  // Mengambil data dari file news.json di folder public
+  const filePath = path.join(process.cwd(), "public", "news.json");
+  const data = await fs.readFile(filePath, "utf-8");
   const news: NewsItem[] = JSON.parse(data);
 
-  return news.map((item) => ({ slug: item.slug }));
+  // Return slugs untuk generateStaticPaths
+  return news.map((item) => ({
+    slug: item.slug,
+  }));
 }
 
-const NewsDetailPage = async ({ params }: { params: { slug: string } }) => {
-  const filePath = path.join(process.cwd(), "news.json");
-  const data = fs.readFileSync(filePath, "utf-8");
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export default async function NewsDetailPage({ params }: PageProps) {
+  // Mengambil data dari file news.json di folder public
+  const filePath = path.join(process.cwd(), "public", "news.json");
+  const data = await fs.readFile(filePath, "utf-8");
   const news: NewsItem[] = JSON.parse(data);
 
   const item = news.find((n) => n.slug === params.slug);
@@ -38,6 +49,4 @@ const NewsDetailPage = async ({ params }: { params: { slug: string } }) => {
       imageUrl={item.image}
     />
   );
-};
-
-export default NewsDetailPage;
+}

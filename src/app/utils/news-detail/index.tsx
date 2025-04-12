@@ -19,6 +19,7 @@ const NewsDetailCard = ({ title, body, date, author, imageUrl }: NewsDetailCardP
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-6">
       {/* Back Button */}
       <button
+        aria-label="Kembali ke halaman sebelumnya"
         onClick={() => router.back()}
         className="text-blue-600 hover:underline mb-4 inline-flex items-center gap-1"
       >

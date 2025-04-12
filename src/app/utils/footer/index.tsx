@@ -2,7 +2,7 @@ import { FaInstagram, FaGlobe } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 py-10 text-center space-y-4">
+    <footer className="bg-gray-100 py-10 text-center space-y-4 bottom-0">
       <p className="text-gray-600">
         © 2025 Persatuan Golf Indonesia Malang. All rights reserved.
       </p>
